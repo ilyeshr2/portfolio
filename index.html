@@ -20,6 +20,35 @@
         section ul li h3 a:hover {
             text-decoration: underline;
         }
+        #wrap {
+            border: 1px solid #808080;
+            border-radius: 10px;
+        }
+        @media (max-width: 472px) { 
+            #wrap {
+                width: 372px;
+            }
+            #p {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #p div {
+                width: 100%;
+            }
+            #img {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+            }}
+            
+         @media (min-width: 472px) { 
+            #wrap {
+                width: 472px;
+            }
+         }
     </style>
 </head>
 <body class="bg-black text-white font-system">
@@ -33,7 +62,7 @@
         </nav>
     </header>
     <main class="flex justify-center w-full">
-        <div class="w-[472px] pr-5 pl-5 pt-5 pb-36">
+        <div class=" pr-5 pl-5 pt-5 pb-36" id="wrap">
             <section class="flex mb-5 mt-8">
                 <div >
                     <img src="pp.png" alt="pp" class="w-24 h-24 rounded-full m-4">
@@ -115,8 +144,8 @@
             <section>
                 <h2 class="mb-9">Side Projects</h2>
                 <ul>
-                    <li class="flex mb-11">
-                        <div class="w-[150px]">
+                    <li id="p" class="flex mb-11">
+                        <div id="img" class="w-[150px]">
                             
                             <a href="https://github.com/ilyeshr2/URLQuestion-AnswerBot" target="_blank"><img src="urlqna.gif" alt="project1" class="w-[120px]"></a>
                         </div>
@@ -130,8 +159,8 @@
                             </p>
                         </div>
                     </li>
-                    <li class="flex mb-11 ">
-                        <div class="w-[150px]">
+                    <li id="p" class="flex mb-11 ">
+                        <div id="img" class="w-[150px]">
                             <a href="https://github.com/ilyeshr2/free-scribe" target="_blank"><img src="FreeScribe.gif" alt="project1" class="w-[120px]"></a>
                         </div>
                         <div class="w-[282px]">
@@ -144,8 +173,8 @@
                             </p>
                         </div>
                     </li>
-                    <li class="flex mb-11 ">
-                        <div class="w-[150px]">
+                    <li id="p" class="flex mb-11 ">
+                        <div id="img" class="w-[150px]">
                             <a href="https://github.com/ilyeshr2/Clipboard-Manager" target="_blank"><img src="cm.gif" alt="project1" class="w-[120px]"></a>
                         </div>
                         <div class="w-[282px]">
