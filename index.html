@@ -21,7 +21,13 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 472px) { 
+        @media (max-width: 630px) { 
+            #h {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0 1rem;
+            }
             #wrap {
                 width: 372px;
                 border: 1px solid #808080;
@@ -41,7 +47,8 @@
                 justify-content: center;
                 align-items: center;
                 margin-bottom: 1rem;
-            }}
+            }
+        }
             
          @media (min-width: 472px) { 
             #wrap {
@@ -63,16 +70,16 @@
             </ul>
         </nav>
     </header>
-    <main class="flex justify-center w-full">
-        <div class=" pr-5 pl-5 pt-5" id="wrap">
-            <section class="flex mb-5 mt-8">
-                <div >
-                    <img src="pp.png" alt="pp" class="w-24 h-24 rounded-full m-4">
+    <main class="flex justify-center w-full flex-col items-center">
+        
+            <section class=" flex mb-5 mt-8 flex justify-between " id="h">
+                <div class="pr-10">
+                    <img src="pp.jpg" alt="pp" class="m-4 h-[421px]">
                 </div>
-                <div class="flex flex-col justify-center">
+                <div class="flex flex-col justify-center pl-10">
 
                     <h1 class="text-2xl mb-1">ilies harrache</h1>
-                    <p class="text-sm mb-1" id="c">Product-focused Developer</p>
+                    <p class="text-sm mb-1" id="c">Computer Science Student</p>
                     <ul class="flex">
                         <li class="mr-3"><a href="https://github.com/ilyeshr2" target=”_blank”><i class="fa-brands fa-github"></i></a></li>
                         <li class="mr-3"><a href="https://www.linkedin.com/in/ilies-harrache-128313228/" target=”_blank”><i class="fa-brands fa-linkedin"></i></a></li>
@@ -82,6 +89,7 @@
                     </ul>
                 </div>
             </section>
+            <div class=" pr-5 pl-5 pt-5" id="wrap">
             <section class="mb-9">
             <h2 class="mb-2">About</h2>
             <p class="" id="c">Hi, I'm Ilies. A computer science student from Canada.
