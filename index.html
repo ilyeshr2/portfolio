@@ -3,556 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NQ Momentum Trading Strategy</title>
+    <title>Ilies Harrache</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-bg: #f8f9fa;
-            --dark-bg: #2c3e50;
-            --text-light: #f8f9fa;
-            --text-dark: #2c3e50;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --danger: #e74c3c;
+        #c {
+            color: #a3a3a3;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        #c2 {
+            color: #808080;
         }
-        
-        body {
-            background-color: #f4f4f4;
-            color: var(--text-dark);
-            line-height: 1.6;
+        header ul li a:hover {
+            text-decoration: underline;
         }
-        
-        header {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            padding: 1.5rem 0;
-            text-align: center;
+        section ul li h3 a:hover {
+            text-decoration: underline;
         }
-        
-        header h1 {
-            margin-bottom: 0.5rem;
-        }
-        
-        nav {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin: 0 1rem;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: #f0f0f0;
-            border-bottom: 2px solid white;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1rem;
-        }
-        
-        .section {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .section h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .flex-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: space-between;
-        }
-        
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            flex: 1 1 300px;
-        }
-        
-        .card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-        
-        table th, table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        table th {
-            background-color: var(--light-bg);
-            font-weight: 600;
-        }
-        
-        table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .alert {
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-        
-        .alert-danger {
-            background-color: rgba(231, 76, 60, 0.1);
-            border-left: 4px solid var(--danger);
-            color: var(--danger);
-        }
-        
-        .alert-warning {
-            background-color: rgba(243, 156, 18, 0.1);
-            border-left: 4px solid var(--warning);
-            color: var(--warning);
-        }
-        
-        .alert-success {
-            background-color: rgba(46, 204, 113, 0.1);
-            border-left: 4px solid var(--success);
-            color: var(--success);
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .stat-box {
-            background-color: var(--light-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .stat-box .value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 0.5rem 0;
-            color: var(--secondary-color);
-        }
-        
-        .stat-box .label {
-            color: var(--text-dark);
-            font-size: 0.9rem;
-        }
-        
-        .rule-box {
-            background-color: var(--light-bg);
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-radius: 4px;
-            border-left: 4px solid var(--secondary-color);
-        }
-        
-        .rule-box h4 {
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .chart-container {
-            width: 100%;
-            height: 800px;
-            margin: 1.5rem 0;
-            background-color: var(--light-bg);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .chart-placeholder {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #aaa;
-        }
-        
-        .chart-placeholder i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        footer {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .flex-container {
+
+        @media (max-width: 630px) { 
+            #h {
                 flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0 1rem;
             }
-            
-            nav ul {
+            #l {
                 flex-direction: column;
+                justify-content: center;
                 align-items: center;
             }
-            
-            nav ul li {
-                margin: 0.5rem 0;
+            #wrap {
+                width: 372px;
+                border: 1px solid #808080;
+                border-radius: 10px;
+            }
+            #p {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #p div {
+                width: 100%;
+            }
+            #img {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
             }
         }
+            
+         @media (min-width: 472px) { 
+            #wrap {
+                width: 472px;
+            }
+         }
+         body {
+             padding-bottom: 20px;
+         }
     </style>
 </head>
-<body>
-    <header>
-        <h1>NQ Momentum Trading Strategy</h1>
-        <p>15-Second Chart Momentum Scalping System</p>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#strategy">Strategy Overview</a></li>
-            <li><a href="#statistics">Performance Stats</a></li>
-            <li><a href="#risk-management">Risk Management</a></li>
-            <li><a href="#psychology">Trading Psychology</a></li>
-            <li><a href="#growth-plan">Growth Plan</a></li>
-        </ul>
-    </nav>
-    
-    <div class="container">
-        <section id="strategy" class="section">
-            <h2>Strategy Overview</h2>
-            
-            <div class="flex-container">
-                <div class="card">
-                    <h3>Core Setup</h3>
-                    <p>The strategy focuses on momentum scalping in the NQ (Nasdaq Futures) market, utilizing the 15-second chart timeframe to capture short-term momentum moves.</p>
-                    <p>Target: 25 points per trade</p>
-                    <p>Stop Loss: 13 points per trade</p>
-                    <p>Risk:Reward Ratio: 1:1.92</p>
-                </div>
-                
-                <div class="card">
-                    <h3>Timeframe</h3>
-                    <p>Trading exclusively on the 15-second chart for NQ futures.</p>
-                    <p>Trading Window: 9:30 AM - 11:00 AM ET (NY Session open)</p>
-                    <p>Reason: Captures micro-movements with high precision during the most volatile and liquid market hours.</p>
-                </div>
-            </div>
-            
+<body class="bg-black text-white font-system">
 
-            
-            <h3>Entry Criteria</h3>
-            <div class="flex-container">
-                <div class="card">
-                    <h3>Signal Generation</h3>
-                    <ol>
-                        <li>EMA Cross Confirmation: 21 EMA and 9 EMA crossover signals potential trend direction</li>
-                        <li>Break of Structure (BoS): Wait for price to confirm the new trend direction with a clear BoS</li>
-                        <li>Pullback: Enter on the second pullback after BoS, typically when price retests the EMA levels</li>
-                        <li>Wick Test Alternative: Recently added alternative entry on valid wick tests of swing highs/lows</li>
-                    </ol>
-                </div>
-                
-                <div class="card">
-                    <h3>Market Conditions Filter</h3>
-                    <ul>
-                        <li>Avoid trading when there are price gaps (signals low volume and potential choppiness)</li>
-                        <li>Do not enter trades if the EMA cross occurred before market open</li>
-                        <li>Wait until after major economic announcements (minimum 5 minutes)</li>
-                        <li>Only trade during high volume and volatility (9:30-11:00 AM ET)</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="alert alert-danger">
-                <strong>Critical Rule:</strong> Never enter two consecutive trades in the same trend direction after being stopped out.
-            </div>
-            <div class="chart-container">
-                <div class="chart-placeholder" ">
-			<img src="1.png">
-                </div>
-            </div>
-        </section>
+    <header class="w-full flex justify-center p-4">
+        <nav class="w-full flex flex-col justify-center">
+            <ul class=" flex justify-between ">
+                <li><a href="#">Ilies.</a></li>
+                <li><a href="#links">Links</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="flex justify-center w-full flex-col items-center">
         
-        <section id="statistics" class="section">
-            <h2>Performance Statistics</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="label">Win Rate</div>
-                    <div class="value">54%</div>
-                    <div class="label">7 wins : 6 losses ratio</div>
+            <section class=" flex mb-5 mt-8 flex justify-between " id="h">
+                <div class="pr-10">
+                    <img src="pp.jpg" alt="pp" class="m-4 h-[421px]">
                 </div>
-                
-                <div class="stat-box">
-                    <div class="label">Avg. Win</div>
-                    <div class="value">25 pts</div>
-                    <div class="label">$25 per MNQ contract</div>
-                </div>
-                
-                <div class="stat-box">
-                    <div class="label">Avg. Loss</div>
-                    <div class="value">13 pts</div>
-                    <div class="label">$13 per MNQ contract</div>
-                </div>
-                
-                <div class="stat-box">
-                    <div class="label">R:R Ratio</div>
-                    <div class="value">1:1.92</div>
-                    <div class="label">Risk:Reward</div>
-                </div>
-            </div>
-            
-            <div class="flex-container">
-                <div class="card">
-                    <h3>2-Month Performance</h3>
-                    <p>Starting Balance: $2,000</p>
-                    <p>Current Balance: $2,260</p>
-                    <p>Net Growth: +$260 (+13%)</p>
-                    <p>Notable Phases:</p>
-                    <ul>
-                        <li>First 15 days: $2,000 → $2,230 (+$230)</li>
-                        <li>Next 15 days: $2,230 → $1,810 (-$420)</li>
-                        <li>Next 30 days: $1,810 → $2,260 (+$450)</li>
+                <div class="flex flex-col justify-center pl-10" id="l">
+
+                    <h1 class="text-2xl mb-1">ilies harrache</h1>
+                    <p class="text-sm mb-1" id="c">Computer Science Student</p>
+                    <ul class="flex" >
+                        <li class="mr-3"><a href="https://github.com/ilyeshr2" target=”_blank”><i class="fa-brands fa-github"></i></a></li>
+                        <li class="mr-3"><a href="https://www.linkedin.com/in/ilies-harrache-128313228/" target=”_blank”><i class="fa-brands fa-linkedin"></i></a></li>
+                        <li class="mr-3"><a href="mailto:ilyesharrache22@gmail.com"><i class="fas fa-envelope"></i></a></li>
+                        <li class="mr-3"><a href="cvportfolio.pdf" target=”_blank”><i class="fa-solid fa-file"></i></a></li>
+                        
                     </ul>
                 </div>
-                
-                <div class="card">
-                    <h3>Expected Performance</h3>
-                    <p>With a 54% win rate and 1:1.92 risk:reward ratio, the mathematical expectancy per trade is positive:</p>
-                    <p>(0.54 × 1.92) - (0.46 × 1) = +0.58</p>
-                    <p>This means that for every unit of risk, the expected return is 0.58 units of profit over a large enough sample size.</p>
-                </div>
-            </div>
-            
-            <div class="alert alert-warning">
-                <strong>Note:</strong> Current statistics are based on a relatively small sample size. Continue tracking performance to refine edge assessment.
-            </div>
-        </section>
+            </section>
+            <div class=" pr-5 pl-5 pt-5" id="wrap">
+            <section class="mb-9">
+            <h2 class="mb-2">About</h2>
+            <p class="" id="c">Hi, I'm Ilies. A computer science student from Canada.
+                                I aim to deepen my understanding in various areas of
+                                 technology and product development.
+            </p>
+            </section>
+             <section class="mb-8 text-sm">
+            <h2 class="mb-9">Work Experience</h2>
+            <ul>
+                <li class="flex mb-11">
+                    <div>
+                        <p class="  w-[130px] mr-5 font-medium" id="c2">Aug 2024 – Present</p>
+                    </div>
+                    <div>
+                        <h3 class="">
+                            <a href="#">
+                                Teaching Assistant – Institut Grasset
+                            </a>
+                        </h3>
+                        <p class="mt-2 mb-2 " id="c">
+                            Led weekly Java tutorials for over 30 students and mentored 12 students,
+                             boosting their grades from 60% to over 80%.
+                        </p>
+                        <p class="font-medium" id="c2">Java • OOP • Eclips • SQLite</p>
+                    </div>
+                </li>
+                <li class="flex mb-11">
+                    <div>
+                        <p class="font-medium  w-[130px] mr-5" id="c2">
+                            Jan 2022 - Apr 2022
+                        </p>
+                    </div>
+                    <div>
+                        <h3><a href="#">
+                                Software Engineer Intern – Conex Prog
+                            </a>
+                        </h3>
+                        <p class="mt-2 mb-2  " id="c">
+                            As a full stack developer on the Release Engineering team,
+                            I enhanced our Python-based build system, speeding up compile times.
+                            Collaborated with a team of seven to manage the identity stack,
+                            ensuring seamless integration and strong security.
+                        </p>
+                        <p class="font-medium " id="c2">
+                            Python • ReactJS • Compilers • gRPC • CI/CD
+                        </p>
+                    </div>
+                    
+                </li>
+                <li class="flex mb-11">
+                    <div>
+                        <p class="font-medium  w-[130px] mr-5" id="c2">
+                            Jan 2021 - Present
+                        </p>
+                    </div>
+                    <div>
+                        <h3>
+                            <a href="#">
+                                Co-Founder/IT Systems Lead – bdc
+                            </a>
+                        </h3>
+                        <p class="mt-2 mb-2  " id="c">
+                            Deployed a new antivirus system across the hospital,
+                             enhancing data security. Led the migration of 200+ computers
+                            to Windows 10 and integrated medical-grade computers into surgery rooms, 
+                            improving accessibility and maintaining hygiene.
+                        </p>
+                        <p class="font-medium " id="c2">
+                            TCP/UDP • Operating Systems • Network Access Control (NAC) • JIRA 
+                        </p>
+                    </div>
+                    
+                </li>
+
+            </ul>
+            </section>
         
-        <section id="risk-management" class="section">
-            <h2>Risk Management</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Phase</th>
-                        <th>Account Size</th>
-                        <th>Risk/Trade</th>
-                        <th>Risk %</th>
-                        <th>Target</th>
-                        <th>Contracts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>$800</td>
-                        <td>$25</td>
-                        <td>2.5%</td>
-                        <td>$2,000</td>
-                        <td>1 MNQ</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>$2,000</td>
-                        <td>$50</td>
-                        <td>2.5%</td>
-                        <td>$5,000</td>
-                        <td>2 MNQ</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>$5,000</td>
-                        <td>$125</td>
-                        <td>2.5%</td>
-                        <td>$10,000</td>
-                        <td>5 MNQ</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>$10,000</td>
-                        <td>$250</td>
-                        <td>2.5%</td>
-                        <td>$15,000</td>
-                        <td>10 MNQ</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>$15,000</td>
-                        <td>$375</td>
-                        <td>2.5%</td>
-                        <td>$20,000</td>
-                        <td>15 MNQ</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Daily Loss Limits</h3>
-            <div class="flex-container">
-                <div class="card">
-                    <h3>Phase 1 ($800)</h3>
-                    <p>Maximum daily loss: 4 trades or $100 (12.5% of account)</p>
-                    <p>This conservative approach provides psychological comfort during the initial phase.</p>
-                </div>
-                
-                <div class="card">
-                    <h3>Later Phases</h3>
-                    <p>As account grows, daily loss limit remains at 4 consecutive trades or 10% of account value, whichever is smaller.</p>
-                    <p>After 3 consecutive losses, take a mandatory 10-minute break to reset mentally before continuing.</p>
-                </div>
-            </div>
-            
-            <div class="alert alert-success">
-                <strong>Key Principle:</strong> Consistent 2.5% risk per trade across all phases maintains disciplined position sizing as account grows.
-            </div>
-        </section>
-        
-        <section id="psychology" class="section">
-            <h2>Trading Psychology</h2>
-            
-            <div class="flex-container">
-                <div class="card">
-                    <h3>Psychological Challenges</h3>
-                    <ul>
-                        <li><strong>Fear of Drawdowns:</strong> Identified as the primary psychological barrier</li>
-                        <li><strong>Overtrading:</strong> Tendency to enter additional trades after losses</li>
-                        <li><strong>Position Sizing Discipline:</strong> Temptation to increase size after losses</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3>Mental Approach</h3>
-                    <ul>
-                        <li><strong>Patience:</strong> "Be patient, be patient, and when the opportunity comes, don't be afraid"</li>
-                        <li><strong>Process Over Outcome:</strong> Focus on executing the strategy correctly, not on P&L</li>
-                        <li><strong>Accepting Drawdowns:</strong> Understanding that drawdowns are normal operating costs, not failures</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>Trading Rules</h3>
-            
-            <div class="rule-box">
-                <h4>Rule #1: Consistent Position Sizing</h4>
-                <p>Never increase position size after losses. Maintain the 2.5% risk per trade rule at all times.</p>
-            </div>
-            
-            <div class="rule-box">
-                <h4>Rule #2: No Re-entering Same Trend</h4>
-                <p>Never enter a second trade in the same trend direction after being stopped out.</p>
-            </div>
-            
-            <div class="rule-box">
-                <h4>Rule #3: Pre-Market EMA Cross</h4>
-                <p>Never enter a trade if the EMA cross occurred before market open, as it doesn't represent NY session potential trend.</p>
-            </div>
-            
-            <div class="rule-box">
-                <h4>Rule #4: Mental Reset</h4>
-                <p>After 3 consecutive losses, take a mandatory 10-minute break to reset mentally before continuing.</p>
-            </div>
-            
-            <div class="alert alert-warning">
-                <strong>Remember:</strong> The hardest part of trading isn't the strategy—it's the psychological discipline to execute it consistently.
-            </div>
-        </section>
-        
-        <section id="growth-plan" class="section">
-            <h2>Growth Plan</h2>
-            
-            <div class="flex-container">
-                <div class="card">
-                    <h3>Current Phase</h3>
-                    <p>Phase 1: $800 account</p>
-                    <p>Trading with 1 MNQ contract (risking $25 to make $50 per trade)</p>
-                    <p>Estimated time to reach $2,000: 60 trading days (3 months)</p>
-                </div>
-                
-                <div class="card">
-                    <h3>Long-Term Projection</h3>
-                    <p>Reaching $50,000 in approximately 9.3 months with consistent execution</p>
-                    <p>This represents a realistic growth trajectory while maintaining disciplined risk management</p>
-                </div>
-            </div>
-            
-            <h3>Development Focus Areas</h3>
-            
-            <div class="flex-container">
-                <div class="card">
-                    <h3>Strategy Refinement</h3>
-                    <ul>
-                        <li>Develop objective criteria for wick test entries</li>
-                        <li>Track performance differences between EMA pullback entries and wick test entries</li>
-                        <li>Identify specific market conditions that favor the strategy</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3>Psychological Development</h3>
-                    <ul>
-                        <li>Build comfort with drawdowns through consistent position sizing</li>
-                        <li>Develop routines for maintaining mental clarity during trading</li>
-                        <li>Implement regular trading journal reviews to identify patterns</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="alert alert-success">
-                <strong>Key Focus:</strong> Consistency and discipline in execution take priority over account growth speed. Trust the process.
-            </div>
-        </section>
-    </div>
-    
-    <footer>
-        <p>NQ Momentum Trading Strategy Dashboard | Last Updated: February 26, 2025</p>
-    </footer>
+            <section>
+                <h2 class="mb-9">Side Projects</h2>
+                <ul>
+
+                    <li id="p" class="flex mb-11 ">
+                        <div id="img" class="w-[150px]">
+                            <a href="https://github.com/ilyeshr2/free-scribe" target="_blank"><img src="freescribe2.gif" alt="project1" class="w-[120px]"></a>
+                        </div>
+                        <div class="w-[282px]">
+                            <h3><a href="https://github.com/ilyeshr2/free-scribe" target="_blank">FreeScribe <i class="fa-brands fa-github ml-1"></i></a></h3>
+                            <p class="  mt-2 mb-2" id="c">
+                                FreeScribe is a AI based audio editor designed for recording audio, transcribing it into text, and translating the text into various languages. The application uses Whisper a pre-trained model for automatic speech recognition (ASR) and speech translation. Trained on 680k hours of labelled data to offer these features efficiently.
+                            </p>
+                            <p class=" font-medium" id="c2">
+                                NLP • ReactJS • JavaScript Workers
+                            </p>
+                        </div>
+                    </li>
+                    <li id="p" class="flex mb-11">
+                        <div id="img" class="w-[150px]">
+                            
+                            <a href="https://github.com/ilyeshr2/URLQuestion-AnswerBot" target="_blank"><img src="urlgif2.gif" alt="project1" class="w-[120px]"></a>
+                        </div>
+                        <div class="w-[282px]">
+                            <h3><a href="https://github.com/ilyeshr2/URLQuestion-AnswerBot" target="_blank">URL Question & Answer Bot <i class="fa-brands fa-github ml-1"></i></a></h3>
+                            <p class="  mt-2 mb-2" id="c">
+                                This project is a web application that allows users to enter a URL, then ask questions about the content of the page. The application scrapes the content of the URL, processes it to create embeddings, and then stores these embeddings in Pinecone vector Data Base. Users can interact with the bot via a chat interface to get answers to their questions based on the content of the scraped URL.
+                            </p>
+                            <p class="font-medium " id="c2">
+                                LLM • Flask • ReactJS • Vector Search
+                            </p>
+                        </div>
+                    </li>
+                    <li id="p" class="flex mb-11 ">
+                        <div id="img" class="w-[150px]">
+                            <a href="https://github.com/ilyeshr2/Clipboard-Manager" target="_blank"><img src="cm.gif" alt="project1" class="w-[120px]"></a>
+                        </div>
+                        <div class="w-[282px]">
+                            <h3><a href="https://github.com/ilyeshr2/Clipboard-Manager" target="_blank">Clipboard Manager <i class="fa-brands fa-github ml-1"></i></a></h3>
+                            <p class="  mt-2 mb-2" id="c">
+                                This Python-based Clipboard Manager allows you to store the last 9 copied items and paste them using custom shortcuts like Ctrl+L+1 for the last copy, Ctrl+L+2 for the second last copy, and so on up to Ctrl+L+9.
+                            </p>
+                            <p class=" font-medium" id="c2">
+                                Python • Threading • System Integration
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </section>
+            <section>
+                <h2 class="mb-9" id="links">Links</h2>
+                <ul>
+                    <li class="mb-3 flex " >
+                        <p class="w-[150px]  font-medium"id="c2">github</p>
+                        <a class=" font-medium"href="https://github.com/ilyeshr2" target="_blank">@ilyeshr2</a>
+                    </li>
+                    <li class="mb-3 flex " >
+                        <p class="w-[150px]  font-medium"id="c2">linkedin</p>
+                        <a class=" font-medium"href="https://www.linkedin.com/in/ilies-harrache-128313228/" target="_blank">@ilies_harrache</a>
+                    </li>
+                    <li class="mb-3 flex " >
+                        <p class="w-[150px]  font-medium"id="c2">gmail</p>
+                        <a class=" font-medium"href="mailto:ilyesharrache22@gmail.com">contact me :)</a>
+                    </li>
+                    <li class="mb-3 flex " >
+                        <p class="w-[150px]  font-medium"id="c2">Résumé</p>
+                        <a class=" font-medium"href="cv.pdf" target="_blank">View Full Résumé</a>
+                    </li>
+                </ul>
+            </section> 
+        </div>    
+    </main>
 </body>
 </html>
